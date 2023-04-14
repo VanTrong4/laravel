@@ -38,10 +38,6 @@ module.exports = {
             '4xl': '2.5rem',
             '5xl': '3rem',
         },
-        padding: {
-            '2rem': '2rem',
-            '4rem': '4rem',
-        },
         height: {
             '6.4rem': '6.4rem',
         }

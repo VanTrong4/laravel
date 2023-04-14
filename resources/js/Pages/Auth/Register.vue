@@ -5,8 +5,8 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import SelectInput from '@/Components/SelectInput.vue';
-import RadioInput from '../../Components/RadioInput.vue';
-import Checkbox from '../../Components/Checkbox.vue';
+import RadioInput from '@/Components/RadioInput.vue';
+import Checkbox from '@/Components/Checkbox.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import { watch } from 'vue';
 import { router } from '@inertiajs/vue3'
@@ -135,7 +135,7 @@ const submit = () => {
                 <div class="flex justify-between p-[2rem] border-t border-t-slate-400 gap-x-24">
                     <div class="grow">
                         <div class="flex justify-between mb-8">
-                            <InputLabel for="Furigana" value="フリガナ" class=" text-3xl font-bold" />
+                            <InputLabel for="email" value="メールアドレス" class=" text-3xl font-bold" />
                             <p class=" text-3xl font-medium text-red-500">性別</p>
                         </div>
                         <p class=" text-gray-500 text-xl">※半角英数字でご入力</p>

@@ -12,7 +12,7 @@ defineProps({
 </script>
 
 <template>
-    <Head title="Welcome" />
+    <Head title="Thanks" />
 
     <div
         class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white"
@@ -40,11 +40,15 @@ defineProps({
                 >
             </template>
         </div>
-
-        <div class="max-w-7xl mx-auto p-6 lg:p-8">
-            <div class="mt-16 text-4xl">
-                Hello
+        <div class="flex flex-col items-center">
+            <div class="mb-4 text-3xl font-bold text-center leading-normal">
+            仮登録<br>
+            送信完了<br>
+            この度はお申し込み頂き誠にありがとうございます。<br>
+            現状、仮登録を完了しメールアドレスへ確認用の自動メールを送信しました。<br>
+            自動メールをご確認後、本登録へお進みください。					
             </div>
+            <Link :href="route('login')" class=" mt-10 text-3xl p-6 bg-black text-slate-100 rounded-md">TOPへ戻る</Link>
         </div>
     </div>
 </template>
