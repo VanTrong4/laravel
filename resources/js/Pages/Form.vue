@@ -10,7 +10,7 @@ import { Head, useForm, usePage } from '@inertiajs/vue3';
 
 
 const user = usePage().props.auth.user;
-
+console.log(user);
 const form = useForm({
     name: user.name,
     Furigana: user.Furigana,
@@ -107,8 +107,8 @@ const submit = () => {
                     </div>
                     <div class=" w-3/5">
                         <div class="flex gap-20 w-full">
-                            <RadioInput required v-model="form.gender" name="gender" id="male" value="男性" />
-                            <RadioInput required v-model="form.gender" name="gender" id="female" value="女性" />
+                            <RadioInput required v-model="form.gender" name="gender" id="male" label="男性" />
+                            <RadioInput required v-model="form.gender" name="gender" id="female" label="女性" />
                         </div>
                         <InputError class="mt-2" :message="form.errors.gender" />
                     </div>

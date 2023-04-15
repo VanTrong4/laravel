@@ -8,9 +8,9 @@ export default {
             arr.push(i);
         }
         return arr
+        },
       },
       emits: ['update:modelValue'],
-}
 
 }
 </script>

@@ -9,7 +9,8 @@ import RadioInput from '@/Components/RadioInput.vue';
 import Checkbox from '@/Components/Checkbox.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import { watch } from 'vue';
-import { router } from '@inertiajs/vue3'
+import { router } from '@inertiajs/vue3';
+import NProgress from 'nprogress';
 
 const form = useForm({
     name: '',
@@ -34,6 +35,7 @@ watch(() => form.data(), (newData, oldData) => {
     needValidate = true;
 })
 
+
 const validate = () => {
     if (!needValidate) return;
     needValidate = false;
@@ -55,8 +57,11 @@ const validate = () => {
 }
 
 const submit = () => {
+    NProgress.start();
     form.post(route('register'), {
-        onFinish: () => form.reset('password', 'password_confirmation'),
+        onFinish: () => {
+            NProgress.done();
+            form.reset('password', 'password_confirmation')},
     });
 };
 </script>

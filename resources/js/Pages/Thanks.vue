@@ -40,6 +40,7 @@ defineProps({
                 >
             </template>
         </div>
+        <h1>THANKS</h1>
         <div class="flex flex-col items-center">
             <div class="mb-4 text-3xl font-bold text-center leading-normal">
             仮登録<br>

@@ -1,6 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
+import { Link } from '@inertiajs/vue3';
 </script>
 
 <template>
@@ -12,9 +13,12 @@ import { Head } from '@inertiajs/vue3';
         </template>
 
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="container">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">You're logged in!</div>
+                    <div class="flex justify-center">
+                        <Link class="py-6 px-9 text-3xl bg-slate-900 text-slate-500 rounded-sm" :href="route('form')">GO TO FORM</Link>
+                    </div>
                 </div>
             </div>
         </div>

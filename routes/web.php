@@ -33,7 +33,7 @@ Route::get('/thanks', function () {
     ]);
 });
 
-Route::get('/form', [FormController::class,'form'])->name('form');
+Route::get('/form', [FormController::class,'form'])->middleware(['auth', 'verified'])->name('form');
 Route::post('/thanks-sender', [MailControl::class, 'store'])->name('thanks-sender');
 
 Route::get('/dashboard', function () {
@@ -46,9 +46,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy')->middleware(['auth', 'verified']);
 });
 
-Route::get('/email/verify', function () {
-    return view('auth.verify-email');
-})->middleware('auth')->name('verification.notice');
+// Route::get('/email/verify', function () {
+//     return view('auth.verify-email');
+// })->middleware('auth')->name('verification.notice');
 
 // Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
 //     $request->fulfill();

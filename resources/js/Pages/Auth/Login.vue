@@ -6,6 +6,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import NProgress from 'nprogress';
 
 defineProps({
     canResetPassword: {
@@ -23,8 +24,11 @@ const form = useForm({
 });
 
 const submit = () => {
+    NProgress.start();
     form.post(route('login'), {
-        onFinish: () => form.reset('password'),
+        onFinish: () => {
+            NProgress.done();
+            form.reset('password')},
     });
 };
 </script>
@@ -34,7 +38,7 @@ const submit = () => {
 
         <Head title="Log in" />
 
-        <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
+        <div v-if="status" class="mb-4 font-medium text-3xl text-green-600">
             {{ status }}
         </div>
         <div class="container">

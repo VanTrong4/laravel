@@ -29,7 +29,6 @@ class MailControl extends Controller
             'title' => 'Mail test',
             'body' => 'test'
         ];
-        dd($request->name);
         Mail::to('ps2210001@gmail.com')->send(new MailInfo($mailData));
     }
 }
