@@ -13,14 +13,14 @@ const showingNavigationDropdown = ref(false);
 <template>
     <div>
         <div class="min-h-screen">
-            <nav class="bg-white border-b border-gray-100">
+            <nav class="flex items-center h-[6rem] bg-green-500 fixed w-full top-0 left-0">
                 <!-- Primary Navigation Menu -->
-                <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="flex justify-between h-16">
+                <div class="container">
+                    <div class="flex justify-between w-full">
                         <div class="flex">
 
                             <!-- Navigation Links -->
-                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <div class="hidden space-x-8 sm:-my-px  sm:flex">
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
                                 </NavLink>
@@ -29,13 +29,13 @@ const showingNavigationDropdown = ref(false);
 
                         <div class="hidden sm:flex sm:items-center sm:ml-6">
                             <!-- Settings Dropdown -->
-                            <div class="ml-3 relative">
+                            <div class="relative">
                                 <Dropdown align="right" width="48">
                                     <template #trigger>
                                         <span class="inline-flex rounded-md">
                                             <button
                                                 type="button"
-                                                class="inline-flex  text-3xl items-center px-3 py-2 border border-transparent leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                                                class="inline-flex h-[3rem] text-3xl items-center px-3 py-2 border border-transparent leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                             >
                                                 {{ $page.props.auth.user.name }}
 
@@ -129,7 +129,7 @@ const showingNavigationDropdown = ref(false);
             </nav>
 
             <!-- Page Heading -->
-            <header class="bg-white shadow" v-if="$slots.header">
+            <header class="bg-white shadow mt-[7rem]" v-if="$slots.header">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     <slot name="header" />
                 </div>
@@ -139,6 +139,11 @@ const showingNavigationDropdown = ref(false);
             <main>
                 <slot />
             </main>
+            <footer class="bg-green-300 py-[4rem] mt-14">
+                <div class="flex justify-center items-center">
+                    <div class="text-4xl">LOGO</div>
+                </div>
+            </footer>
         </div>
     </div>
 </template>

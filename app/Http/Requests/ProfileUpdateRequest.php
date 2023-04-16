@@ -16,8 +16,42 @@ class ProfileUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['string', 'max:255'],
-            'email' => ['email', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'Furigana' => 'required|string|max:255',
+            'year' => 'required',
+            'month' => 'required',
+            'day' => 'required',
+            'gender' => 'required',
+            'preferContact' => "required",
+            'LINEID' => "required",
+            'postCode' => "required",
+            'district' => "required",
+            'city' => "required",
+            'address' => "required",
+            'apartmentName' => "required",
+            'postCodeCom' => "required",
+            'districtCom' => "required",
+            'cityCom' => "required",
+            'addressCom' => "required",
+            'apartmentNameCom' => "required",
+            'telephoneCom' => "required",
+            'bankName' => "required",
+            'branchName' => "required",
+            'teleBranch' => "required",
+            'typeAccount' => "required",
+            'account' => "required",
+            'accountName' => "required",
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'required' => 'こちらは必須入力となります。',
+            'email' => '※正しい書式でご記入ください',
+            'gender.required' => '1つのみ選択可能',
+            'preferContact.required' => '1つのみ選択可能',
+            'typeAccount.required' => '1つのみ選択可能',
         ];
     }
 }

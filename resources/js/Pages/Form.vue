@@ -7,10 +7,11 @@ import TextInput from '@/Components/TextInput.vue';
 import SelectInput from '@/Components/SelectInput.vue';
 import RadioInput from '@/Components/RadioInput.vue';
 import { Head, useForm, usePage } from '@inertiajs/vue3';
+import { ref } from 'vue'
 
-
+let district = ref('')
+let districtCom = ref('')
 const user = usePage().props.auth.user;
-console.log(user);
 const form = useForm({
     name: user.name,
     Furigana: user.Furigana,
@@ -22,12 +23,12 @@ const form = useForm({
     preferContact: "",
     LINEID: "",
     postCode: "",
-    district: "",
+    district: district.value,
     city: "",
     address: "",
     apartmentName: "",
     postCodeCom: "",
-    districtCom: "",
+    districtCom: districtCom.value,
     cityCom: "",
     addressCom: "",
     apartmentNameCom: "",
@@ -39,9 +40,9 @@ const form = useForm({
     account: "",
     accountName: "",
 });
-
+console.log(district.value);
 const submit = () => {
-    form.post(route('thanks-sender'));
+    form.patch(route('thanks-sender'));
 };
 
 </script>
@@ -49,7 +50,7 @@ const submit = () => {
 <template>
     <Head title="Form" />
     <AuthenticatedLayout>
-        <div class="container mt-11">
+        <div class="container mt-11  mt-[10rem]">
             <h1 class="text-5xl font-bold text-gray-900">本登録用のフォーム（お申し込み用）</h1>
             <form @focusout="validate" @submit.prevent="submit"
                 class="w-full px-[4rem] py-[4rem] border border-slate-500 rounded-sm">
@@ -62,7 +63,7 @@ const submit = () => {
                         <p class=" text-gray-500 text-xl">※お名前を漢字でご入力</p>
                     </div>
                     <div class="w-3/5">
-                        <TextInput required id="name" v-model="form.name" type="text" autocomplete="name" />
+                        <TextInput  id="name" v-model="form.name" type="text" autocomplete="name" />
                         <InputError class="mt-2" :message="form.errors.name" />
                     </div>
                 </div>
@@ -76,7 +77,7 @@ const submit = () => {
                         <p class=" text-gray-500 text-xl">※お名前のフリガナをご入力</p>
                     </div>
                     <div class="w-3/5">
-                        <TextInput required id="Furigana" v-model="form.Furigana" type="text" autocomplete="Furigana" />
+                        <TextInput  id="Furigana" v-model="form.Furigana" type="text" autocomplete="Furigana" />
                         <InputError class="mt-2" :message="form.errors.Furigana" />
                     </div>
                 </div>
@@ -90,9 +91,9 @@ const submit = () => {
                     </div>
                     <div class="w-3/5 ">
                         <div class="flex gap-10 w-full">
-                            <SelectInput required min="1900" max="2004" v-model="form.year" opDefault="年" id="year" />
-                            <SelectInput required min="1" max="12" v-model="form.month" opDefault="月" id="month" />
-                            <SelectInput required min="1" max="31" v-model="form.day" opDefault="日" id="day" />
+                            <SelectInput  min="1900" max="2004" v-model="form.year" opDefault="年" id="year" />
+                            <SelectInput  min="1" max="12" v-model="form.month" opDefault="月" id="month" />
+                            <SelectInput  min="1" max="31" v-model="form.day" opDefault="日" id="day" />
                         </div>
                         <InputError class="mt-2" :message="form.errors.year || form.errors.month || form.errors.day" />
                     </div>
@@ -107,8 +108,8 @@ const submit = () => {
                     </div>
                     <div class=" w-3/5">
                         <div class="flex gap-20 w-full">
-                            <RadioInput required v-model="form.gender" name="gender" id="male" label="男性" />
-                            <RadioInput required v-model="form.gender" name="gender" id="female" label="女性" />
+                            <RadioInput  v-model="form.gender" name="gender" id="male" lable="男性" />
+                            <RadioInput  v-model="form.gender" name="gender" id="female" lable="女性" />
                         </div>
                         <InputError class="mt-2" :message="form.errors.gender" />
                     </div>
@@ -124,7 +125,7 @@ const submit = () => {
                         <p class=" text-gray-500 text-xl">※半角英数字でご入力</p>
                     </div>
                     <div class="w-3/5">
-                        <TextInput required id="email" v-model="form.email" type="email" autocomplete="email" />
+                        <TextInput  id="email" v-model="form.email" type="email" autocomplete="email" />
                         <InputError class="mt-2" :message="form.errors.email" />
                     </div>
                 </div>
@@ -138,8 +139,8 @@ const submit = () => {
                     </div>
                     <div class=" w-3/5">
                         <div class="flex gap-20 w-full">
-                            <RadioInput required v-model="form.preferContact" name="preferContact" id="typeEmale" value="メール" />
-                            <RadioInput required v-model="form.preferContact" name="preferContact" id="line" value="LINE" />
+                            <RadioInput  v-model="form.preferContact" name="preferContact" id="typeEmale" lable="メール" />
+                            <RadioInput  v-model="form.preferContact" name="preferContact" id="line" lable="LINE" />
                         </div>
                         <InputError class="mt-2" :message="form.errors.preferContact" />
                     </div>
@@ -149,11 +150,12 @@ const submit = () => {
                     <div class="grow">
                         <div class="flex justify-between mb-8">
                             <InputLabel for="LINEID" value="LINE ID" class=" text-3xl font-bold" />
+                            <p class=" text-3xl font-medium text-slate-500">任意</p>
                         </div>
                         <p class=" text-gray-500 text-xl">※半角英数字で8文字以上でご入力</p>
                     </div>
                     <div class="w-3/5">
-                        <TextInput required id="LINEID" name="LINEID" v-model="form.LINEID" type="text" autocomplete="LINEID" />
+                        <TextInput  id="LINEID" name="LINEID" v-model="form.LINEID" type="text" autocomplete="LINEID" />
                         <InputError class="mt-2" :message="form.errors.LINEID" />
                     </div>
                 </div>
@@ -166,13 +168,12 @@ const submit = () => {
                             <InputLabel for="postCode" value="郵便番号" class=" text-3xl font-bold" />
                             <p class=" text-3xl font-medium text-red-500">必須</p>
                         </div>
-                        <p class=" text-gray-500 text-xl">※上記と同じパスワードを再度ご入力</p>
                     </div>
                     <div class="w-3/5">
                         <div class="flex w-full items-center gap-6">
-                            <TextInput required class="w-1/4" size="4" maxlength="3" name="postCode1" type="number" />
+                            <TextInput  class="w-1/4" size="4" maxlength="3" name="postCode1" type="number" />
                             -
-                            <TextInput required class="w-1/4" id="postCode" name="postCode2" v-model="form.postCode" size="5"
+                            <TextInput  class="w-1/4" id="postCode" name="postCode2" v-model="form.postCode" size="5"
                                 maxlength="4" type="number"
                                 onkeyup="AjaxZip3.zip2addr('postCode1','postCode2','district','city','address');"
                                 autocomplete="postCode" />
@@ -187,10 +188,9 @@ const submit = () => {
                             <InputLabel for="district" value="都道府県" class=" text-3xl font-bold" />
                             <p class=" text-3xl font-medium text-red-500">必須</p>
                         </div>
-                        <p class=" text-gray-500 text-xl">※上記と同じパスワードを再度ご入力</p>
                     </div>
                     <div class="w-3/5">
-                        <select required name="district"
+                        <select  name="district" :value="district"
                             class="focus:border-indigo-500 rounded-md shadow-sm mt-1 block h-[6.4rem] bg-gray-100 text-3xl border-none w-1/2">
                             <option value="" selected disabled>都道府県</option>
                             <option value="北海道">北海道</option>
@@ -251,10 +251,9 @@ const submit = () => {
                             <InputLabel for="city" value="市区町村" class=" text-3xl font-bold" />
                             <p class=" text-3xl font-medium text-red-500">必須</p>
                         </div>
-                        <p class=" text-gray-500 text-xl">※上記と同じパスワードを再度ご入力</p>
                     </div>
                     <div class="w-3/5">
-                        <TextInput required id="city" name="city" v-model="form.city" type="text" autocomplete="city" />
+                        <TextInput  id="city" name="city" v-model="form.city" type="text" autocomplete="city" />
                         <InputError class="mt-2" :message="form.errors.city" />
                     </div>
                 </div>
@@ -265,10 +264,9 @@ const submit = () => {
                             <InputLabel for="address" value="番地" class=" text-3xl font-bold" />
                             <p class=" text-3xl font-medium text-red-500">必須</p>
                         </div>
-                        <p class=" text-gray-500 text-xl">※上記と同じパスワードを再度ご入力</p>
                     </div>
                     <div class="w-3/5">
-                        <TextInput required id="address" name="address" v-model="form.address" type="text" autocomplete="address" />
+                        <TextInput  id="address" name="address" v-model="form.address" type="text" autocomplete="address" />
                         <InputError class="mt-2" :message="form.errors.address" />
                     </div>
                 </div>
@@ -277,11 +275,11 @@ const submit = () => {
                     <div class="grow">
                         <div class="flex justify-between mb-8">
                             <InputLabel for="apartmentName" value="マンション名・部屋番号" class=" text-3xl font-bold" />
+                            <p class=" text-3xl font-medium text-slate-500">任意</p>
                         </div>
-                        <p class=" text-gray-500 text-xl">※上記と同じパスワードを再度ご入力</p>
                     </div>
                     <div class="w-3/5">
-                        <TextInput required id="apartmentName" name="apartmentName" v-model="form.apartmentName" type="text"
+                        <TextInput  id="apartmentName" name="apartmentName" v-model="form.apartmentName" type="text"
                             autocomplete="apartmentName" />
                         <InputError class="mt-2" :message="form.errors.apartmentName" />
                     </div>
@@ -295,13 +293,12 @@ const submit = () => {
                             <InputLabel for="postCodeCom" value="郵便番号" class=" text-3xl font-bold" />
                             <p class=" text-3xl font-medium text-red-500">必須</p>
                         </div>
-                        <p class=" text-gray-500 text-xl">※上記と同じパスワードを再度ご入力</p>
                     </div>
                     <div class="w-3/5">
                         <div class="flex w-full items-center gap-6">
-                            <TextInput required class="w-1/4" size="4" maxlength="3" name="postCodeCom1" type="number" />
+                            <TextInput  class="w-1/4" size="4" maxlength="3" name="postCodeCom1" type="number" />
                             -
-                            <TextInput required class="w-1/4" id="postCode" name="postCodeCom2" v-model="form.postCode" size="5"
+                            <TextInput  class="w-1/4" id="postCode" name="postCodeCom2" v-model="form.postCode" size="5"
                                 maxlength="4" type="number"
                                 onkeyup="AjaxZip3.zip2addr('postCodeCom1','postCodeCom2','districtCom','cityCom','addressCom');"
                                 autocomplete="postCode" />
@@ -316,10 +313,9 @@ const submit = () => {
                             <InputLabel for="districtCom" value="都道府県" class=" text-3xl font-bold" />
                             <p class=" text-3xl font-medium text-red-500">必須</p>
                         </div>
-                        <p class=" text-gray-500 text-xl">※上記と同じパスワードを再度ご入力</p>
                     </div>
                     <div class="w-3/5">
-                        <select required name="districtCom"
+                        <select  name="districtCom" :value="districtCom"
                             class="focus:border-indigo-500 rounded-md shadow-sm mt-1 block h-[6.4rem] bg-gray-100 text-3xl border-none w-1/2">
                             <option value="" selected disabled>都道府県</option>
                             <option value="北海道">北海道</option>
@@ -380,10 +376,9 @@ const submit = () => {
                             <InputLabel for="cityCom" value="市区町村" class=" text-3xl font-bold" />
                             <p class=" text-3xl font-medium text-red-500">必須</p>
                         </div>
-                        <p class=" text-gray-500 text-xl">※上記と同じパスワードを再度ご入力</p>
                     </div>
                     <div class="w-3/5">
-                        <TextInput required id="cityCom" name="cityCom" v-model="form.cityCom" type="text" autocomplete="cityCom" />
+                        <TextInput  id="cityCom" name="cityCom" v-model="form.cityCom" type="text" autocomplete="cityCom" />
                         <InputError class="mt-2" :message="form.errors.cityCom" />
                     </div>
                 </div>
@@ -394,10 +389,9 @@ const submit = () => {
                             <InputLabel for="addressCom" value="番地" class=" text-3xl font-bold" />
                             <p class=" text-3xl font-medium text-red-500">必須</p>
                         </div>
-                        <p class=" text-gray-500 text-xl">※上記と同じパスワードを再度ご入力</p>
                     </div>
                     <div class="w-3/5">
-                        <TextInput required id="addressCom" name="addressCom" v-model="form.addressCom" type="text"
+                        <TextInput  id="addressCom" name="addressCom" v-model="form.addressCom" type="text"
                             autocomplete="addressCom" />
                         <InputError class="mt-2" :message="form.errors.addressCom" />
                     </div>
@@ -407,11 +401,11 @@ const submit = () => {
                     <div class="grow">
                         <div class="flex justify-between mb-8">
                             <InputLabel for="apartmentNameCom" value="マンション名・部屋番号" class=" text-3xl font-bold" />
+                            <p class=" text-3xl font-medium text-slate-500">任意</p>
                         </div>
-                        <p class=" text-gray-500 text-xl">※上記と同じパスワードを再度ご入力</p>
                     </div>
                     <div class="w-3/5">
-                        <TextInput required id="apartmentNameCom" name="apartmentNameCom" v-model="form.apartmentNameCom" type="text"
+                        <TextInput  id="apartmentNameCom" name="apartmentNameCom" v-model="form.apartmentNameCom" type="text"
                             autocomplete="apartmentNameCom" />
                         <InputError class="mt-2" :message="form.errors.apartmentNameCom" />
                     </div>
@@ -423,10 +417,9 @@ const submit = () => {
                             <InputLabel for="telephoneCom" value="電話番号" class=" text-3xl font-bold" />
                             <p class=" text-3xl font-medium text-red-500">必須</p>
                         </div>
-                        <p class=" text-gray-500 text-xl">※上記と同じパスワードを再度ご入力</p>
                     </div>
                     <div class="w-3/5">
-                        <TextInput required id="telephoneCom" name="telephoneCom" v-model="form.telephoneCom" type="number"
+                        <TextInput  id="telephoneCom" name="telephoneCom" v-model="form.telephoneCom" type="number"
                             autocomplete="telephoneCom" />
                         <InputError class="mt-2" :message="form.errors.telephoneCom" />
                     </div>
@@ -439,10 +432,9 @@ const submit = () => {
                         <div class="flex justify-between mb-8">
                             <InputLabel for="bankName" value="銀行名" class=" text-3xl font-bold" />
                         </div>
-                        <p class=" text-gray-500 text-xl">※上記と同じパスワードを再度ご入力</p>
                     </div>
                     <div class="w-3/5">
-                        <TextInput required id="bankName" name="bankName" v-model="form.bankName" type="text"
+                        <TextInput  id="bankName" name="bankName" v-model="form.bankName" type="text"
                             autocomplete="bankName" />
                         <InputError class="mt-2" :message="form.errors.bankName" />
                     </div>
@@ -453,10 +445,9 @@ const submit = () => {
                         <div class="flex justify-between mb-8">
                             <InputLabel for="branchName" value="支店名" class=" text-3xl font-bold" />
                         </div>
-                        <p class=" text-gray-500 text-xl">※上記と同じパスワードを再度ご入力</p>
                     </div>
                     <div class="w-3/5">
-                        <TextInput required id="branchName" name="branchName" v-model="form.branchName" type="text"
+                        <TextInput  id="branchName" name="branchName" v-model="form.branchName" type="text"
                             autocomplete="branchName" />
                         <InputError class="mt-2" :message="form.errors.branchName" />
                     </div>
@@ -467,10 +458,9 @@ const submit = () => {
                         <div class="flex justify-between mb-8">
                             <InputLabel for="teleBranch" value="支店番号" class=" text-3xl font-bold" />
                         </div>
-                        <p class=" text-gray-500 text-xl">※上記と同じパスワードを再度ご入力</p>
                     </div>
                     <div class="w-3/5">
-                        <TextInput required id="teleBranch" name="teleBranch" v-model="form.teleBranch" type="text"
+                        <TextInput  id="teleBranch" name="teleBranch" v-model="form.teleBranch" type="text"
                             autocomplete="teleBranch" />
                         <InputError class="mt-2" :message="form.errors.teleBranch" />
                     </div>
@@ -485,8 +475,8 @@ const submit = () => {
                     </div>
                     <div class=" w-3/5">
                         <div class="flex gap-20 w-full">
-                            <RadioInput required v-model="form.typeAccount" name="typeAccount" id="normal" value="普通" />
-                            <RadioInput required v-model="form.typeAccount" name="typeAccount" id="temporary" value="当座" />
+                            <RadioInput  v-model="form.typeAccount" name="typeAccount" id="normal" lable="普通" />
+                            <RadioInput  v-model="form.typeAccount" name="typeAccount" id="temporary" lable="当座" />
                         </div>
                         <InputError class="mt-2" :message="form.errors.typeAccount" />
                     </div>
@@ -497,10 +487,9 @@ const submit = () => {
                         <div class="flex justify-between mb-8">
                             <InputLabel for="account" value="口座番号" class=" text-3xl font-bold" />
                         </div>
-                        <p class=" text-gray-500 text-xl">※上記と同じパスワードを再度ご入力</p>
                     </div>
                     <div class="w-3/5">
-                        <TextInput required id="account" name="account" v-model="form.account" type="number"
+                        <TextInput  id="account" name="account" v-model="form.account" type="number"
                             autocomplete="account" />
                         <InputError class="mt-2" :message="form.errors.account" />
                     </div>
@@ -511,10 +500,9 @@ const submit = () => {
                         <div class="flex justify-between mb-8">
                             <InputLabel for="accountName" value="口座名義(カナ)" class=" text-3xl font-bold" />
                         </div>
-                        <p class=" text-gray-500 text-xl">※上記と同じパスワードを再度ご入力</p>
                     </div>
                     <div class="w-3/5">
-                        <TextInput required id="accountName" name="accountName" v-model="form.accountName" type="number"
+                        <TextInput  id="accountName" name="accountName" v-model="form.accountName" type="number"
                             autocomplete="accountName" />
                         <InputError class="mt-2" :message="form.errors.accountName" />
                     </div>
@@ -524,7 +512,7 @@ const submit = () => {
 
                 <div class="flex flex-col items-start justify-end mt-4 p-[2rem] gap-6">
                     <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                        Register
+                        「確認へ移動」ボタン
                     </PrimaryButton>
                 </div>
             </form>

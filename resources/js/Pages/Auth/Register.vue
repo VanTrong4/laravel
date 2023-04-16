@@ -82,7 +82,7 @@ const submit = () => {
                         <p class=" text-gray-500 text-xl">※お名前を漢字でご入力</p>
                     </div>
                     <div class="w-3/5">
-                        <TextInput id="name" v-model="form.name" type="text" required  autocomplete="name" />
+                        <TextInput id="name" v-model="form.name" type="text"   autocomplete="name" />
                         <InputError class="mt-2" :message="form.errors.name" />
                     </div>
                 </div>
@@ -96,7 +96,7 @@ const submit = () => {
                         <p class=" text-gray-500 text-xl">※お名前のフリガナをご入力</p>
                     </div>
                     <div class="w-3/5">
-                    <TextInput id="Furigana" v-model="form.Furigana" type="text" required 
+                    <TextInput id="Furigana" v-model="form.Furigana" type="text"  
                         autocomplete="Furigana" />
                     <InputError class="mt-2" :message="form.errors.Furigana" />
                 </div>
@@ -111,9 +111,9 @@ const submit = () => {
                     </div>
                     <div class="w-3/5 ">
                         <div class="flex gap-10 w-full">
-                        <SelectInput min="1900" max="2004" v-model="form.year" opDefault="年" id="year" required  />
-                        <SelectInput min="1" max="12" v-model="form.month" opDefault="月" id="month" required  />
-                        <SelectInput min="1" max="31" v-model="form.day" opDefault="日" id="day" required  />
+                        <SelectInput min="1900" max="2004" v-model="form.year" opDefault="年" id="year"   />
+                        <SelectInput min="1" max="12" v-model="form.month" opDefault="月" id="month"   />
+                        <SelectInput min="1" max="31" v-model="form.day" opDefault="日" id="day"   />
                         </div>
                         <InputError class="mt-2" :message="form.errors.year || form.errors.month || form.errors.day" />
                     </div>
@@ -128,8 +128,8 @@ const submit = () => {
                     </div>
                     <div class=" w-3/5">
                         <div class="flex gap-20 w-full">
-                        <RadioInput v-model="form.gender" name="gender" id="male" value="男性" />
-                        <RadioInput v-model="form.gender" name="gender" id="female" value="女性" />
+                        <RadioInput v-model="form.gender" name="gender" id="male" lable="男性" />
+                        <RadioInput v-model="form.gender" name="gender" id="female" lable="女性" />
                         </div>
                         <InputError class="mt-2" :message="form.errors.gender" />
                     </div>
@@ -146,7 +146,7 @@ const submit = () => {
                         <p class=" text-gray-500 text-xl">※半角英数字でご入力</p>
                     </div>
                     <div class="w-3/5">
-                    <TextInput id="email" v-model="form.email" type="email" required  autocomplete="email" />
+                    <TextInput id="email" v-model="form.email" type="email"   autocomplete="email" />
                     <InputError class="mt-2" :message="form.errors.email" />
                 </div>
                 </div>
@@ -160,7 +160,7 @@ const submit = () => {
                         <p class=" text-gray-500 text-xl">※上記と同じメールアドレスを再度ご入力</p>
                     </div>
                     <div class="w-3/5">
-                    <TextInput id="emailConfirm" v-model="form.emailConfirm" type="email" required 
+                    <TextInput id="emailConfirm" v-model="form.emailConfirm" type="email"  
                         autocomplete="emailConfirm" />
                     <InputError class="mt-2" :message="form.errors.emailConfirm" />
                 </div>
@@ -175,7 +175,7 @@ const submit = () => {
                         <p class=" text-gray-500 text-xl">※半角英数字で8文字以上でご入力</p>
                     </div>
                     <div class="w-3/5">
-                    <TextInput id="password" name="password" v-model="form.password" type="password" required 
+                    <TextInput id="password" name="password" v-model="form.password" type="password"  
                         autocomplete="password" />
                     <InputError class="mt-2" :message="form.errors.password" />
                 </div>
@@ -190,7 +190,7 @@ const submit = () => {
                         <p class=" text-gray-500 text-xl">※上記と同じパスワードを再度ご入力</p>
                     </div>
                     <div class="w-3/5">
-                    <TextInput id="password_confirmation" name="password_confirmation" v-model="form.password_confirmation" type="password" required
+                    <TextInput id="password_confirmation" name="password_confirmation" v-model="form.password_confirmation" type="password" 
                          autocomplete="password_confirmation" />
                     <InputError class="mt-2" :message="form.errors.password_confirmation" />
                 </div>
@@ -198,7 +198,7 @@ const submit = () => {
 
                 <div class="flex flex-col items-start justify-end mt-4 p-[2rem] gap-6">
                     <div class="flex items-center gap-5">
-                        <Checkbox id="yes" name="terms" required v-model="form.terms"/>
+                        <Checkbox id="yes" name="terms"  v-model="form.terms"/>
                         <label for="yes" class="text-3xl font-bold">プライバシーポリシーに同意	</label>
                         <InputError class="mt-2" :message="form.errors.terms" />
                     </div>
