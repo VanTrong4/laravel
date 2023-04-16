@@ -7,10 +7,7 @@ import TextInput from '@/Components/TextInput.vue';
 import SelectInput from '@/Components/SelectInput.vue';
 import RadioInput from '@/Components/RadioInput.vue';
 import { Head, useForm, usePage } from '@inertiajs/vue3';
-import { ref } from 'vue'
 
-let district = ref('')
-let districtCom = ref('')
 const user = usePage().props.auth.user;
 const form = useForm({
     name: user.name,
@@ -20,29 +17,31 @@ const form = useForm({
     day: user.day,
     gender: user.gender,
     email: user.email,
-    preferContact: "",
-    LINEID: "",
-    postCode: "",
-    district: district.value,
-    city: "",
-    address: "",
-    apartmentName: "",
-    postCodeCom: "",
-    districtCom: districtCom.value,
-    cityCom: "",
-    addressCom: "",
-    apartmentNameCom: "",
-    telephoneCom: "",
-    bankName: "",
-    branchName: "",
-    teleBranch: "",
-    typeAccount: "",
-    account: "",
-    accountName: "",
+    preferContact: user.preferContact,
+    LINEID: user.LINEID,
+    postCodeBef: user.postCodeBef,
+    postCodeAfter: user.postCodeAfter,
+    district: user.district,
+    city: user.city,
+    address: user.address,
+    apartmentName: user.apartmentName,
+    postCodeComBef: user.postCodeComBef,
+    postCodeComAfter: user.postCodeComAfter,
+    districtCom: user.districtCom,
+    cityCom: user.cityCom,
+    addressCom: user.addressCom,
+    apartmentNameCom: user.apartmentNameCom,
+    telephoneCom: user.telephoneCom,
+    bankName: user.bankName,
+    branchName: user.branchName,
+    teleBranch: user.teleBranch,
+    typeAccount: user.typeAccount,
+    account: user.account,
+    accountName: user.accountName,
 });
-console.log(district.value);
+
 const submit = () => {
-    form.patch(route('thanks-sender'));
+    form.post(route('form-confirm'));
 };
 
 </script>
@@ -165,20 +164,19 @@ const submit = () => {
                 <div class="flex justify-between p-[2rem] border-t border-t-slate-400 gap-x-24">
                     <div class="grow">
                         <div class="flex justify-between mb-8">
-                            <InputLabel for="postCode" value="郵便番号" class=" text-3xl font-bold" />
+                            <InputLabel for="postCodeBef" value="郵便番号" class=" text-3xl font-bold" />
                             <p class=" text-3xl font-medium text-red-500">必須</p>
                         </div>
                     </div>
                     <div class="w-3/5">
                         <div class="flex w-full items-center gap-6">
-                            <TextInput  class="w-1/4" size="4" maxlength="3" name="postCode1" type="number" />
+                            <TextInput  class="w-1/4" size="4" maxlength="3" name="postCodeBef" type="number" v-model="form.postCodeBef" />
                             -
-                            <TextInput  class="w-1/4" id="postCode" name="postCode2" v-model="form.postCode" size="5"
+                            <TextInput  class="w-1/4" id="postCodeAfter" name="postCodeAfter" size="5" v-model="form.postCodeAfter"
                                 maxlength="4" type="number"
-                                onkeyup="AjaxZip3.zip2addr('postCode1','postCode2','district','city','address');"
-                                autocomplete="postCode" />
+                                onkeyup="AjaxZip3.zip2addr('postCodeBef','postCodeAfter','district','city','address');"/>
                         </div>
-                        <InputError class="mt-2" :message="form.errors.postCode" />
+                        <InputError class="mt-2" :message="form.errors.postCodeBef||form.errors.postCodeAfter" />
                     </div>
                 </div>
 
@@ -190,8 +188,8 @@ const submit = () => {
                         </div>
                     </div>
                     <div class="w-3/5">
-                        <select  name="district" :value="district"
-                            class="focus:border-indigo-500 rounded-md shadow-sm mt-1 block h-[6.4rem] bg-gray-100 text-3xl border-none w-1/2">
+                        <select  name="district" v-model="form.district"
+                            class="leading-[1.3] focus:border-indigo-500 rounded-md shadow-sm mt-1 block h-[6.4rem] bg-gray-100 text-3xl border-none w-1/2">
                             <option value="" selected disabled>都道府県</option>
                             <option value="北海道">北海道</option>
                             <option value="青森県">青森県</option>
@@ -290,20 +288,19 @@ const submit = () => {
                 <div class="flex justify-between p-[2rem] border-t border-t-slate-400 gap-x-24">
                     <div class="grow">
                         <div class="flex justify-between mb-8">
-                            <InputLabel for="postCodeCom" value="郵便番号" class=" text-3xl font-bold" />
+                            <InputLabel for="postCodeComBef" value="郵便番号" class=" text-3xl font-bold" />
                             <p class=" text-3xl font-medium text-red-500">必須</p>
                         </div>
                     </div>
                     <div class="w-3/5">
                         <div class="flex w-full items-center gap-6">
-                            <TextInput  class="w-1/4" size="4" maxlength="3" name="postCodeCom1" type="number" />
+                            <TextInput  class="w-1/4" size="4" maxlength="3" name="postCodeComBef" type="number"  v-model="form.postCodeComBef"/>
                             -
-                            <TextInput  class="w-1/4" id="postCode" name="postCodeCom2" v-model="form.postCode" size="5"
+                            <TextInput  class="w-1/4" id="postCode" name="postCodeComAfter" size="5"  v-model="form.postCodeComAfter"
                                 maxlength="4" type="number"
-                                onkeyup="AjaxZip3.zip2addr('postCodeCom1','postCodeCom2','districtCom','cityCom','addressCom');"
-                                autocomplete="postCode" />
+                                onkeyup="AjaxZip3.zip2addr('postCodeComBef','postCodeComAfter','districtCom','cityCom','addressCom');"/>
                         </div>
-                        <InputError class="mt-2" :message="form.errors.postCodeCom" />
+                        <InputError class="mt-2" :message="form.errors.postCodeComBef||form.errors.postCodeComBef" />
                     </div>
                 </div>
 
@@ -315,8 +312,8 @@ const submit = () => {
                         </div>
                     </div>
                     <div class="w-3/5">
-                        <select  name="districtCom" :value="districtCom"
-                            class="focus:border-indigo-500 rounded-md shadow-sm mt-1 block h-[6.4rem] bg-gray-100 text-3xl border-none w-1/2">
+                        <select  name="districtCom" v-model="form.districtCom"
+                            class="leading-[1.3] focus:border-indigo-500 rounded-md shadow-sm mt-1 block h-[6.4rem] bg-gray-100 text-3xl border-none w-1/2">
                             <option value="" selected disabled>都道府県</option>
                             <option value="北海道">北海道</option>
                             <option value="青森県">青森県</option>

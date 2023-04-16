@@ -1,0 +1,358 @@
+<script setup>
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import InputError from '@/Components/InputError.vue';
+import InputLabel from '@/Components/InputLabel.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
+import InputConfirm from '@/Components/InputConfirm.vue';
+import TextInput from '@/Components/TextInput.vue';
+import RadioInput from '@/Components/RadioInput.vue';
+import { Head,useForm} from '@inertiajs/vue3';
+
+const props = defineProps({
+    dataForm : Object
+})
+const form = useForm({
+    name: props.dataForm.name,
+    Furigana: props.dataForm.Furigana,
+    year: props.dataForm.year,
+    month: props.dataForm.month,
+    day: props.dataForm.day,
+    gender: props.dataForm.gender,
+    email: props.dataForm.email,
+    preferContact: props.dataForm.preferContact,
+    LINEID: props.dataForm.LINEID,
+    postCodeBef: props.dataForm.postCodeBef,
+    postCodeAfter: props.dataForm.postCodeAfter,
+    district: props.dataForm.district,
+    city: props.dataForm.city,
+    address: props.dataForm.address,
+    apartmentName: props.dataForm.apartmentName,
+    postCodeComBef: props.dataForm.postCodeComBef,
+    postCodeComAfter: props.dataForm.postCodeComAfter,
+    districtCom: props.dataForm.districtCom,
+    cityCom: props.dataForm.cityCom,
+    addressCom: props.dataForm.addressCom,
+    apartmentNameCom: props.dataForm.apartmentNameCom,
+    telephoneCom: props.dataForm.telephoneCom,
+    bankName: props.dataForm.bankName,
+    branchName: props.dataForm.branchName,
+    teleBranch: props.dataForm.teleBranch,
+    typeAccount: props.dataForm.typeAccount,
+    account: props.dataForm.account,
+    accountName: props.dataForm.accountName,
+});
+
+const submit = () => {
+    form.patch(route('thanks-sender'));
+};
+
+</script>
+
+<template>
+    <Head title="Form" />
+    <AuthenticatedLayout>
+        <div class="container mt-11  mt-[10rem]">
+            <h1 class="text-5xl font-bold text-gray-900">本登録用のフォーム（お申し込み用）</h1>
+            <form @focusout="validate" @submit.prevent="submit"
+                class="w-full px-[4rem] py-[4rem] border border-slate-500 rounded-sm">
+                <div class="flex justify-between p-[2rem] border-t border-t-slate-400 gap-x-24">
+                    <div class="grow">
+                        <div class="flex justify-between mb-8">
+                            <InputLabel for="name" value="名前" class=" text-3xl font-bold" />
+                        </div>
+                    </div>
+                    <div class="w-3/5">
+                        <InputConfirm  :value="form.name"/>
+                    </div>
+                </div>
+
+                <div class="flex justify-between p-[2rem] border-t border-t-slate-400 gap-x-24">
+                    <div class="grow">
+                        <div class="flex justify-between mb-8">
+                            <InputLabel for="Furigana" value="フリガナ" class=" text-3xl font-bold" />
+                        </div>
+                    </div>
+                    <div class="w-3/5">
+                        <InputConfirm :value="form.Furigana" />
+                    </div>
+                </div>
+
+                <div class="flex justify-between p-[2rem] border-t border-t-slate-400 gap-x-24">
+                    <div class="grow">
+                        <div class="flex justify-between mb-8">
+                            <InputLabel for="" value="生年月日" class=" text-3xl font-bold" />
+                        </div>
+                    </div>
+                    <div class="w-3/5 ">
+                        <div class="flex gap-10 w-full">
+                            <InputConfirm :value="form.year" />
+                            <InputConfirm :value="form.month" />
+                            <InputConfirm :value="form.day" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between p-[2rem] border-t border-b border-t-slate-400 border-b-slate-400 gap-x-24">
+                    <div class="grow">
+                        <div class="flex justify-between mb-8">
+                            <InputLabel for="gender" value="生年月日" class=" text-3xl font-bold" />
+                        </div>
+                    </div>
+                    <div class=" w-3/5">
+                        <div class="flex gap-20 w-full">
+                            <InputConfirm :value="form.gender" />
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="flex justify-between p-[2rem] border-t border-t-slate-400 gap-x-24">
+                    <div class="grow">
+                        <div class="flex justify-between mb-8">
+                            <InputLabel for="email" value="メールアドレス" class=" text-3xl font-bold" />
+                        </div>
+                        <p class=" text-gray-500 text-xl">※半角英数字でご入力</p>
+                    </div>
+                    <div class="w-3/5">
+                        <InputConfirm :value="form.email" />
+                    </div>
+                </div>
+
+                <div class="flex justify-between p-[2rem] border-t border-b border-t-slate-400 border-b-slate-400 gap-x-24">
+                    <div class="grow">
+                        <div class="flex justify-between mb-8">
+                            <InputLabel for="preferContact" value="ご希望の連絡方法" class=" text-3xl font-bold" />
+                        </div>
+                    </div>
+                    <div class=" w-3/5">
+                        <div class="flex gap-20 w-full">
+                            <InputConfirm :value="form.preferContact" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between p-[2rem] border-t border-t-slate-400 gap-x-24">
+                    <div class="grow">
+                        <div class="flex justify-between mb-8">
+                            <InputLabel for="LINEID" value="LINE ID" class=" text-3xl font-bold" />
+                        </div>
+                    </div>
+                    <div class="w-3/5">
+                        <InputConfirm :value="form.LINEID" />
+                    </div>
+                </div>
+
+                <h2 class="text-4xl my-20 text-center">お住まいの情報</h2>
+
+                <div class="flex justify-between p-[2rem] border-t border-t-slate-400 gap-x-24">
+                    <div class="grow">
+                        <div class="flex justify-between mb-8">
+                            <InputLabel for="postCodeBef" value="郵便番号" class=" text-3xl font-bold" />
+                        </div>
+                    </div>
+                    <div class="w-3/5">
+                        <div class="flex w-full items-center gap-6">
+                            <InputConfirm :value="form.postCodeBef" />
+                            -
+                            <InputConfirm :value="form.postCodeAfter" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between p-[2rem] border-t border-t-slate-400 gap-x-24">
+                    <div class="grow">
+                        <div class="flex justify-between mb-8">
+                            <InputLabel for="district" value="都道府県" class=" text-3xl font-bold" />
+                        </div>
+                    </div>
+                    <div class="w-3/5">
+                        <InputConfirm :value="form.district" />
+                    </div>
+                </div>
+
+                <div class="flex justify-between p-[2rem] border-t border-t-slate-400 gap-x-24">
+                    <div class="grow">
+                        <div class="flex justify-between mb-8">
+                            <InputLabel for="city" value="市区町村" class=" text-3xl font-bold" />
+                        </div>
+                    </div>
+                    <div class="w-3/5">
+                        <InputConfirm :value="form.city" />
+                    </div>
+                </div>
+
+                <div class="flex justify-between p-[2rem] border-t border-t-slate-400 gap-x-24">
+                    <div class="grow">
+                        <div class="flex justify-between mb-8">
+                            <InputLabel for="address" value="番地" class=" text-3xl font-bold" />
+                        </div>
+                    </div>
+                    <div class="w-3/5">
+                        <InputConfirm :value="form.address" />
+                    </div>
+                </div>
+
+                <div class="flex justify-between p-[2rem] border-t border-t-slate-400 gap-x-24">
+                    <div class="grow">
+                        <div class="flex justify-between mb-8">
+                            <InputLabel for="apartmentName" value="マンション名・部屋番号" class=" text-3xl font-bold" />
+                        </div>
+                    </div>
+                    <div class="w-3/5">
+                        <InputConfirm :value="form.apartmentName" />
+                    </div>
+                </div>
+
+                <h2 class="text-4xl my-20 text-center">勤務先の情報</h2>
+
+                <div class="flex justify-between p-[2rem] border-t border-t-slate-400 gap-x-24">
+                    <div class="grow">
+                        <div class="flex justify-between mb-8">
+                            <InputLabel for="postCodeComBef" value="郵便番号" class=" text-3xl font-bold" />
+                        </div>
+                    </div>
+                    <div class="w-3/5">
+                        <div class="flex w-full items-center gap-6">
+                            <InputConfirm :value="form.postCodeComBef" />
+                            -
+                            <InputConfirm :value="form.postCodeComAfter" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between p-[2rem] border-t border-t-slate-400 gap-x-24">
+                    <div class="grow">
+                        <div class="flex justify-between mb-8">
+                            <InputLabel for="districtCom" value="都道府県" class=" text-3xl font-bold" />
+                        </div>
+                    </div>
+                    <div class="w-3/5">
+                        <InputConfirm :value="form.districtCom" />
+                    </div>
+                </div>
+
+                <div class="flex justify-between p-[2rem] border-t border-t-slate-400 gap-x-24">
+                    <div class="grow">
+                        <div class="flex justify-between mb-8">
+                            <InputLabel for="cityCom" value="市区町村" class=" text-3xl font-bold" />
+                        </div>
+                    </div>
+                    <div class="w-3/5">
+                        <InputConfirm :value="form.cityCom" />
+                    </div>
+                </div>
+
+                <div class="flex justify-between p-[2rem] border-t border-t-slate-400 gap-x-24">
+                    <div class="grow">
+                        <div class="flex justify-between mb-8">
+                            <InputLabel for="addressCom" value="番地" class=" text-3xl font-bold" />
+                        </div>
+                    </div>
+                    <div class="w-3/5">
+                        <InputConfirm :value="form.addressCom" />
+                    </div>
+                </div>
+
+                <div class="flex justify-between p-[2rem] border-t border-t-slate-400 gap-x-24">
+                    <div class="grow">
+                        <div class="flex justify-between mb-8">
+                            <InputLabel for="apartmentNameCom" value="マンション名・部屋番号" class=" text-3xl font-bold" />
+                        </div>
+                    </div>
+                    <div class="w-3/5">
+                        <InputConfirm :value="form.apartmentNameCom" />
+                    </div>
+                </div>
+
+                <div class="flex justify-between p-[2rem] border-t border-t-slate-400 gap-x-24">
+                    <div class="grow">
+                        <div class="flex justify-between mb-8">
+                            <InputLabel for="telephoneCom" value="電話番号" class=" text-3xl font-bold" />
+                        </div>
+                    </div>
+                    <div class="w-3/5">
+                        <InputConfirm :value="form.telephoneCom" />
+                    </div>
+                </div>
+
+                <h2 class="text-4xl my-20 text-center">口座番号</h2>
+
+                <div class="flex justify-between p-[2rem] border-t border-t-slate-400 gap-x-24">
+                    <div class="grow">
+                        <div class="flex justify-between mb-8">
+                            <InputLabel for="bankName" value="銀行名" class=" text-3xl font-bold" />
+                        </div>
+                    </div>
+                    <div class="w-3/5">
+                        <InputConfirm :value="form.bankName" />
+                    </div>
+                </div>
+
+                <div class="flex justify-between p-[2rem] border-t border-t-slate-400 gap-x-24">
+                    <div class="grow">
+                        <div class="flex justify-between mb-8">
+                            <InputLabel for="branchName" value="支店名" class=" text-3xl font-bold" />
+                        </div>
+                    </div>
+                    <div class="w-3/5">
+                        <InputConfirm :value="form.branchName" />
+                    </div>
+                </div>
+
+                <div class="flex justify-between p-[2rem] border-t border-t-slate-400 gap-x-24">
+                    <div class="grow">
+                        <div class="flex justify-between mb-8">
+                            <InputLabel for="teleBranch" value="支店番号" class=" text-3xl font-bold" />
+                        </div>
+                    </div>
+                    <div class="w-3/5">
+                        <InputConfirm :value="form.teleBranch" />
+                    </div>
+                </div>
+
+                <div class="flex justify-between p-[2rem] border-t border-b border-t-slate-400 border-b-slate-400 gap-x-24">
+                    <div class="grow">
+                        <div class="flex justify-between mb-8">
+                            <InputLabel for="typeAccount" value="口座の種類" class=" text-3xl font-bold" />
+                        </div>
+                    </div>
+                    <div class=" w-3/5">
+                        <div class="flex gap-20 w-full">
+                            <InputConfirm :value="form.typeAccount" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between p-[2rem] border-t border-t-slate-400 gap-x-24">
+                    <div class="grow">
+                        <div class="flex justify-between mb-8">
+                            <InputLabel for="account" value="口座番号" class=" text-3xl font-bold" />
+                        </div>
+                    </div>
+                    <div class="w-3/5">
+                        <InputConfirm :value="form.account" />
+                    </div>
+                </div>
+
+                <div class="flex justify-between p-[2rem] border-t border-t-slate-400 gap-x-24">
+                    <div class="grow">
+                        <div class="flex justify-between mb-8">
+                            <InputLabel for="accountName" value="口座名義(カナ)" class=" text-3xl font-bold" />
+                        </div>
+                    </div>
+                    <div class="w-3/5">
+                        <InputConfirm :value="form.accountName" />
+                    </div>
+                </div>
+
+                <h2 class="text-4xl my-20 text-center">個人情報の写真添付</h2>
+
+                <div class="flex flex-col items-start justify-end mt-4 p-[2rem] gap-6">
+                    <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                        「確認へ移動」ボタン
+                    </PrimaryButton>
+                </div>
+            </form>
+        </div>
+    </AuthenticatedLayout>
+</template>

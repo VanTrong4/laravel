@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MailControl;
 use App\Http\Controllers\FormController;
+use App\Http\Controllers\FormConfirmController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -34,6 +35,7 @@ Route::get('/thanks', function () {
 });
 
 Route::get('/form', [FormController::class,'form'])->middleware(['auth', 'verified'])->name('form');
+Route::post('/form-confirm', [FormConfirmController::class,'formConfirm'])->middleware(['auth', 'verified'])->name('form-confirm');
 Route::patch('/thanks-sender', [ProfileController::class, 'update'])->name('thanks-sender');
 Route::get('/thanks-sender', function(){
     return Inertia::render('ThankSender');

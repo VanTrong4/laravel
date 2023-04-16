@@ -29,12 +29,11 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        dd($request);
         $request->user()->fill($request->validated());
 
         $request->user()->save();
 
-        return Inertia::render('ThankSender');
+        return Redirect::to('/thanks-sender');
     }
 
     /**

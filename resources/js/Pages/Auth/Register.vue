@@ -27,18 +27,14 @@ const form = useForm({
 });
 
 let touchedFields = new Set();
-let needValidate = false;
 
 watch(() => form.data(), (newData, oldData) => {
     let changeFields = Object.keys(newData).filter(field => newData[field] !== oldData[field]);
     touchedFields = new Set([...changeFields, ...touchedFields])
-    needValidate = true;
 })
 
 
 const validate = () => {
-    if (!needValidate) return;
-    needValidate = false;
     router.visit(route('register'), {
         method: 'post',
         data: {
