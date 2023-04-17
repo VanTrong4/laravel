@@ -1,15 +1,12 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import InputConfirm from '@/Components/InputConfirm.vue';
-import TextInput from '@/Components/TextInput.vue';
-import RadioInput from '@/Components/RadioInput.vue';
 import { Head,useForm} from '@inertiajs/vue3';
 
 const props = defineProps({
-    dataForm : Object
+    dataForm : Object,
 })
 const form = useForm({
     name: props.dataForm.name,
@@ -40,6 +37,9 @@ const form = useForm({
     typeAccount: props.dataForm.typeAccount,
     account: props.dataForm.account,
     accountName: props.dataForm.accountName,
+    avartarUser: props.dataForm.avartarUser,
+    frontCardUser: props.dataForm.frontCardUser,
+    afterCardUser: props.dataForm.afterCardUser,
 });
 
 const submit = () => {
@@ -65,7 +65,6 @@ const submit = () => {
                         <InputConfirm  :value="form.name"/>
                     </div>
                 </div>
-
                 <div class="flex justify-between p-[2rem] border-t border-t-slate-400 gap-x-24">
                     <div class="grow">
                         <div class="flex justify-between mb-8">
@@ -341,7 +340,35 @@ const submit = () => {
                         </div>
                     </div>
                     <div class="w-3/5">
-                        <InputConfirm :value="form.accountName" />
+                        <InputConfirm :value="form.avatar" />
+                    </div>
+                </div>
+
+                <div class="flex justify-between p-[2rem] border-t border-t-slate-400 gap-x-24">
+                    <div class="grow">
+                        <div class="flex justify-between mb-8">
+                            <InputLabel for="accountName" value="必要書類の添付" class=" text-3xl font-bold" />
+                        </div>
+                    </div>
+                    <div class="w-3/5">
+                        <div class="flex flex-wrap gap-y-[1.5rem] mb-[2rem]">
+                            <div class="w-1/2 text-3xl">セルフィー（自画撮り）</div>
+                            <img :src="'../storage/image/'+form.avartarUser">
+                            <input class="hidden" :value="form.avartarUser" >
+                        </div>
+                        <div class="flex flex-wrap gap-y-[1.5rem]">
+                            <div class="w-1/2 text-3xl">運転免許証、または<br>顔写真付きの身分証明書</div>
+                            <div class="w-1/2 text-xl">
+                                <div class="mb-[1.5rem]">
+                                    <img :src="'../storage/image/'+form.frontCardUser">
+                                    <input class="hidden" :value="form.frontCardUser" >
+                                </div>
+                                <div>
+                                    <img :src="'../storage/image/'+form.afterCardUser">
+                                    <input class="hidden" :value="form.afterCardUser" >
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

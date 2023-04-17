@@ -38,7 +38,11 @@ const form = useForm({
     typeAccount: user.typeAccount,
     account: user.account,
     accountName: user.accountName,
+    avatar:'',
+    frontCard:'',
+    afterCard:'',
 });
+
 
 const submit = () => {
     form.post(route('form-confirm'));
@@ -52,7 +56,7 @@ const submit = () => {
         <div class="container mt-11  mt-[10rem]">
             <h1 class="text-5xl font-bold text-gray-900">本登録用のフォーム（お申し込み用）</h1>
             <form @focusout="validate" @submit.prevent="submit"
-                class="w-full px-[4rem] py-[4rem] border border-slate-500 rounded-sm">
+                class="w-full px-[4rem] py-[4rem] border border-slate-500 rounded-sm" enctype="multipart/form-data">
                 <div class="flex justify-between p-[2rem] border-t border-t-slate-400 gap-x-24">
                     <div class="grow">
                         <div class="flex justify-between mb-8">
@@ -506,6 +510,36 @@ const submit = () => {
                 </div>
 
                 <h2 class="text-4xl my-20 text-center">個人情報の写真添付</h2>
+
+                <div class="flex justify-between p-[2rem] border-t border-t-slate-400 gap-x-24">
+                    <div class="grow">
+                        <div class="flex justify-between mb-8">
+                            <InputLabel for="accountName" value="必要書類の添付" class=" text-3xl font-bold" />
+                            <p class=" text-3xl font-medium text-red-500">必須</p>
+                        </div>
+                    </div>
+                    <div class="w-3/5">
+                        <div class="flex flex-wrap gap-y-[1.5rem] mb-[2rem]">
+                            <div class="w-1/2 text-3xl">セルフィー（自画撮り）</div>
+                            <input class="w-1/2 text-xl" type="file" name="avatar" @change="form.avatar = $event.target.files[0]">
+                            <p class="text-gray-500 text-xl">* Please take a selfie with your ID and<br>send a photo of yourself at the same time.</p>
+                        </div>
+                        <div class="flex flex-wrap gap-y-[1.5rem]">
+                            <div class="w-1/2 text-3xl">運転免許証、または<br>顔写真付きの身分証明書</div>
+                            <div class="w-1/2 text-xl">
+                                <div class="mb-[1.5rem]">
+                                    <span class=" font-medium text-red-500">※表面</span>
+                                    <input type="file" name="frontCard" @change="form.frontCard = $event.target.files[0]">
+                                </div>
+                                <div>
+                                    <span class=" font-medium text-red-500">※裏面</span>
+                                    <input type="file" name="afterCard" @change="form.afterCard = $event.target.files[0]">
+                                </div>
+                            </div>
+                            <p class="text-gray-500 text-xl">※添付可能な画像のファイル形式はJPEG・PNG・GIFとなります。<br>※添付ボタン1つにつき、添付可能な画像容量は5MBまでになります。</p>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="flex flex-col items-start justify-end mt-4 p-[2rem] gap-6">
                     <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">

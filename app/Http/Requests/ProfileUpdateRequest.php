@@ -44,6 +44,9 @@ class ProfileUpdateRequest extends FormRequest
             'typeAccount' => ['required','string', 'max:255'],
             'account' => ['required','max:255'],
             'accountName' => ['required','string', 'max:255'],
+            // 'avartarUser' => ['required','image'],
+            // 'frontCardUser' => ['required','image'],
+            // 'afterCardUser' => ['required','image'],
         ];
     }
     public function messages()

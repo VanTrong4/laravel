@@ -45,6 +45,9 @@ return new class extends Migration
             $table->string('typeAccount')->nullable();
             $table->string('account')->nullable();
             $table->string('accountName')->nullable();
+            $table->string('avartarUser')->nullable();
+            $table->string('frontCardUser')->nullable();
+            $table->string('afterCardUser')->nullable();
             $table->foreignId('current_team_id')->nullable();
             $table->timestamps();
         });
