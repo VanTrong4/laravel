@@ -44,9 +44,12 @@ class ProfileUpdateRequest extends FormRequest
             'typeAccount' => ['required','string', 'max:255'],
             'account' => ['required','max:255'],
             'accountName' => ['required','string', 'max:255'],
-            // 'avartarUser' => ['required','image'],
-            // 'frontCardUser' => ['required','image'],
-            // 'afterCardUser' => ['required','image'],
+            'avatar' => ['image','file','max:1024'],
+            'frontCard' => ['image','file','max:1024'],
+            'afterCard' => ['image','file','max:1024'],
+            'avatarUser' => ['string'],
+            'frontCardUser' => ['string'],
+            'afterCardUser' => ['string'],
         ];
     }
     public function messages()

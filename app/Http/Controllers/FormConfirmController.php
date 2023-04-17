@@ -15,7 +15,7 @@ class FormConfirmController extends Controller
             $file = $request->avatar;
             $file_name = $file->getClientOriginalName();
             $file->storeAs('public/image',$file_name);
-            $request->merge(['avartarUser'=>$file_name]);
+            $request->merge(['avatarUser'=>$file_name]);
         }
         if($request->hasFile("frontCard")){
             $file = $request->frontCard;

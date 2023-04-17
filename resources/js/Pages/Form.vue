@@ -7,46 +7,61 @@ import TextInput from '@/Components/TextInput.vue';
 import SelectInput from '@/Components/SelectInput.vue';
 import RadioInput from '@/Components/RadioInput.vue';
 import { Head, useForm, usePage } from '@inertiajs/vue3';
+import { onMounted } from 'vue'
+
+
+let inputData ;
+if(sessionStorage.getItem("inputUser")){
+    inputData = JSON.parse(sessionStorage.getItem("inputUser"))
+}
 
 const user = usePage().props.auth.user;
 const form = useForm({
-    name: user.name,
-    Furigana: user.Furigana,
-    year: user.year,
-    month: user.month,
-    day: user.day,
-    gender: user.gender,
-    email: user.email,
-    preferContact: user.preferContact,
-    LINEID: user.LINEID,
-    postCodeBef: user.postCodeBef,
-    postCodeAfter: user.postCodeAfter,
-    district: user.district,
-    city: user.city,
-    address: user.address,
-    apartmentName: user.apartmentName,
-    postCodeComBef: user.postCodeComBef,
-    postCodeComAfter: user.postCodeComAfter,
-    districtCom: user.districtCom,
-    cityCom: user.cityCom,
-    addressCom: user.addressCom,
-    apartmentNameCom: user.apartmentNameCom,
-    telephoneCom: user.telephoneCom,
-    bankName: user.bankName,
-    branchName: user.branchName,
-    teleBranch: user.teleBranch,
-    typeAccount: user.typeAccount,
-    account: user.account,
-    accountName: user.accountName,
+    name: inputData?.name||user.name,
+    Furigana: inputData?.Furigana||user.Furigana,
+    year: inputData?.year||user.year,
+    month: inputData?.month||user.month,
+    day: inputData?.day||user.day,
+    gender: inputData?.gender||user.gender,
+    email: inputData?.email||user.email,
+    preferContact: inputData?.preferContact||user.preferContact,
+    LINEID: inputData?.LINEID||user.LINEID,
+    postCodeBef: inputData?.postCodeBef||user.postCodeBef,
+    postCodeAfter: inputData?.postCodeAfter||user.postCodeAfter,
+    district: inputData?.district||user.district,
+    city: inputData?.city||user.city,
+    address: inputData?.address||user.address,
+    apartmentName: inputData?.apartmentName||user.apartmentName,
+    postCodeComBef: inputData?.postCodeComBef||user.postCodeComBef,
+    postCodeComAfter: inputData?.postCodeComAfter||user.postCodeComAfter,
+    districtCom: inputData?.districtCom||user.districtCom,
+    cityCom: inputData?.cityCom||user.cityCom,
+    addressCom: inputData?.addressCom||user.addressCom,
+    apartmentNameCom: inputData?.apartmentNameCom||user.apartmentNameCom,
+    telephoneCom: inputData?.telephoneCom||user.telephoneCom,
+    bankName: inputData?.bankName||user.bankName,
+    branchName: inputData?.branchName||user.branchName,
+    teleBranch: inputData?.teleBranch||user.teleBranch,
+    typeAccount: inputData?.typeAccount||user.typeAccount,
+    account: inputData?.account||user.account,
+    accountName: inputData?.accountName||user.accountName,
     avatar:'',
     frontCard:'',
     afterCard:'',
 });
 
+onMounted(() => sessionStorage.removeItem("inputUser"))
 
 const submit = () => {
     form.post(route('form-confirm'));
 };
+
+
+const change = (e) => {
+    console.log(e.target.value);
+};
+
+
 
 </script>
 
@@ -55,7 +70,7 @@ const submit = () => {
     <AuthenticatedLayout>
         <div class="container mt-11  mt-[10rem]">
             <h1 class="text-5xl font-bold text-gray-900">本登録用のフォーム（お申し込み用）</h1>
-            <form @focusout="validate" @submit.prevent="submit"
+            <form autocomplete="on" @focusout="validate" @submit.prevent="submit"
                 class="w-full px-[4rem] py-[4rem] border border-slate-500 rounded-sm" enctype="multipart/form-data">
                 <div class="flex justify-between p-[2rem] border-t border-t-slate-400 gap-x-24">
                     <div class="grow">
@@ -255,7 +270,7 @@ const submit = () => {
                         </div>
                     </div>
                     <div class="w-3/5">
-                        <TextInput  id="city" name="city" v-model="form.city" type="text" autocomplete="city" />
+                        <TextInput  id="city" name="city" v-model="form.city" type="text" autocomplete="city" @input="change($event)" />
                         <InputError class="mt-2" :message="form.errors.city" />
                     </div>
                 </div>

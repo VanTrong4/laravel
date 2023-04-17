@@ -4,10 +4,13 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import InputConfirm from '@/Components/InputConfirm.vue';
 import { Head,useForm} from '@inertiajs/vue3';
+import NProgress from 'nprogress';
 
 const props = defineProps({
     dataForm : Object,
 })
+
+
 const form = useForm({
     name: props.dataForm.name,
     Furigana: props.dataForm.Furigana,
@@ -37,14 +40,25 @@ const form = useForm({
     typeAccount: props.dataForm.typeAccount,
     account: props.dataForm.account,
     accountName: props.dataForm.accountName,
-    avartarUser: props.dataForm.avartarUser,
+    avatarUser: props.dataForm.avatarUser,
     frontCardUser: props.dataForm.frontCardUser,
     afterCardUser: props.dataForm.afterCardUser,
 });
 
+
 const submit = () => {
-    form.patch(route('thanks-sender'));
+    NProgress.start();
+    form.patch(route('thanks-sender'), {
+        onFinish: () => {
+            NProgress.done();},
+    });
 };
+
+const backForm =() => {
+    sessionStorage.setItem('inputUser',JSON.stringify(props.dataForm));
+    history.back();
+}
+
 
 </script>
 
@@ -353,8 +367,8 @@ const submit = () => {
                     <div class="w-3/5">
                         <div class="flex flex-wrap gap-y-[1.5rem] mb-[2rem]">
                             <div class="w-1/2 text-3xl">セルフィー（自画撮り）</div>
-                            <img :src="'../storage/image/'+form.avartarUser">
-                            <input class="hidden" :value="form.avartarUser" >
+                            <img :src="'../storage/image/'+form.avatarUser">
+                            <input class="hidden" :value="form.avatarUser" >
                         </div>
                         <div class="flex flex-wrap gap-y-[1.5rem]">
                             <div class="w-1/2 text-3xl">運転免許証、または<br>顔写真付きの身分証明書</div>
@@ -375,6 +389,9 @@ const submit = () => {
                 <h2 class="text-4xl my-20 text-center">個人情報の写真添付</h2>
 
                 <div class="flex flex-col items-start justify-end mt-4 p-[2rem] gap-6">
+                    <div class="h-[3rem]" @click="backForm">
+                        前へ戻る
+                    </div>
                     <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                         「確認へ移動」ボタン
                     </PrimaryButton>

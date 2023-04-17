@@ -48,7 +48,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'typeAccount',
         'account',
         'accountName',
-        'avartarUser',
+        'avatarUser',
         'frontCardUser',
         'afterCardUser',
     ];
