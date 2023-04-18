@@ -48,7 +48,7 @@ const form = useForm({
 
 const submit = () => {
     NProgress.start();
-    form.patch(route('thanks-sender'), {
+    form.post(route('thanks-sender'), {
         onFinish: () => {
             NProgress.done();},
     });
@@ -387,9 +387,8 @@ const backForm =() => {
                 </div>
 
                 <h2 class="text-4xl my-20 text-center">個人情報の写真添付</h2>
-
-                <div class="flex flex-col items-start justify-end mt-4 p-[2rem] gap-6">
-                    <div class="h-[3rem]" @click="backForm">
+                <div class="flex flex-col-reverse items-center mt-4 p-[2rem] gap-6">
+                    <div class="h-[3rem] cursor-pointer bg-gray-800 text-white flex items-center justify-center px-[0.3rem]" @click="backForm">
                         前へ戻る
                     </div>
                     <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">

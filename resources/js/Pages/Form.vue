@@ -537,6 +537,7 @@ const change = (e) => {
                         <div class="flex flex-wrap gap-y-[1.5rem] mb-[2rem]">
                             <div class="w-1/2 text-3xl">セルフィー（自画撮り）</div>
                             <input class="w-1/2 text-xl" type="file" name="avatar" @change="form.avatar = $event.target.files[0]">
+                            <InputError class="mt-2" :message="form.errors.avatar" />
                             <p class="text-gray-500 text-xl">* Please take a selfie with your ID and<br>send a photo of yourself at the same time.</p>
                         </div>
                         <div class="flex flex-wrap gap-y-[1.5rem]">
@@ -545,10 +546,12 @@ const change = (e) => {
                                 <div class="mb-[1.5rem]">
                                     <span class=" font-medium text-red-500">※表面</span>
                                     <input type="file" name="frontCard" @change="form.frontCard = $event.target.files[0]">
+                                    <InputError class="mt-2" :message="form.errors.frontCard" />
                                 </div>
                                 <div>
                                     <span class=" font-medium text-red-500">※裏面</span>
                                     <input type="file" name="afterCard" @change="form.afterCard = $event.target.files[0]">
+                                    <InputError class="mt-2" :message="form.errors.afterCard" />
                                 </div>
                             </div>
                             <p class="text-gray-500 text-xl">※添付可能な画像のファイル形式はJPEG・PNG・GIFとなります。<br>※添付ボタン1つにつき、添付可能な画像容量は5MBまでになります。</p>

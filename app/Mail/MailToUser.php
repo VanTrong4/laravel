@@ -30,7 +30,7 @@ class MailToUser extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Mail to user',
+            subject: '【サイト名】お問い合わせありがとうございました。',
         );
     }
 

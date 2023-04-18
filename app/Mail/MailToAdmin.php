@@ -30,7 +30,7 @@ class MailToAdmin extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Mail To Admin',
+            subject: '『サイト名』お客様よりお問い合わせがありました',
         );
     }
 

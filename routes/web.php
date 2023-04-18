@@ -36,8 +36,10 @@ Route::get('/thanks', function () {
 
 Route::get('/form', [FormController::class,'form'])->middleware(['auth', 'verified'])->name('form');
 Route::post('/form-confirm', [FormConfirmController::class,'formConfirm'])->middleware(['auth', 'verified'])->name('form-confirm');
-Route::patch('/thanks-sender', [ProfileController::class, 'update'])->name('thanks-sender');
-Route::get('/thanks-sender', [MailControl::class,'store'])->middleware(['auth', 'verified'])->name('thanks-sender');
+Route::post('/thanks-sender', [ProfileController::class, 'update'])->middleware(['auth', 'verified'])->name('thanks-sender');
+Route::get('/thanks-sender', function () {
+    return Inertia::render('Thanks');
+})->middleware(['auth', 'verified'])->name('thanks-sender');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
